@@ -5,4 +5,5 @@ import com.example.oggettoonboarding.R
 
 class ProfileFragment: Fragment(R.layout.fragment_profile) {
 
+
 }
