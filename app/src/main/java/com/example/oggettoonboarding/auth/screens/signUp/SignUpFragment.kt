@@ -41,7 +41,7 @@ class SignUpFragment() : Fragment(R.layout.fragment_sign_up) {
             if (pass == confirmPass) {
                 Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
                 viewModel.signUpWithEmailAndPassword(email, pass)
-                viewModel.signUpWithPersonalInfo(name, sureName, patronymic)
+                viewModel.signUpWithPersonalInfo(name, sureName, patronymic, email)
             }else Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
         } else Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_SHORT).show()
     }

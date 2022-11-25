@@ -38,11 +38,13 @@ class AuthViewModel(
     }
 
     fun signUpWithPersonalInfo(
+        email: String,
         name: String,
         sureName: String,
         patronymic: String,
     ) {
         authRepository.signUpWithPersonalInfo(UserPersonalInfo(
+            email,
             name,
             sureName,
             patronymic,

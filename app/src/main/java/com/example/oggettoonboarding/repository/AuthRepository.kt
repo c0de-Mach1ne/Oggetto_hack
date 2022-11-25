@@ -21,6 +21,7 @@ class AuthRepository() {
         firebaseAuth.currentUser?.let { firebaseUser ->
             db.child("Users").child(firebaseUser.uid).setValue(
                 UserPersonalInfo(
+                    email = userPersonalInfo.email,
                     name = userPersonalInfo.name,
                     sureName = userPersonalInfo.sureName,
                     patronymic = userPersonalInfo.patronymic,
