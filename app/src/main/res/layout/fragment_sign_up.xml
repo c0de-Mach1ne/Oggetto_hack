@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp"
-    tools:context=".auth.screens.signUp.SignUpFragment">
+    tools:context=".auth.fragments.signUp.SignUpFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutEmail"

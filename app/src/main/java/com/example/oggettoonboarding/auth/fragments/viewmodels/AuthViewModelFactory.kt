@@ -1,4 +1,4 @@
-package com.example.oggettoonboarding.auth.screens.viewmodels
+package com.example.oggettoonboarding.auth.fragments.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

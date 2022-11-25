@@ -1,4 +1,4 @@
-package com.example.oggettoonboarding.auth.screens.signIn
+package com.example.oggettoonboarding.auth.fragments.signIn
 
 import android.os.Bundle
 import android.view.View
@@ -8,8 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.oggettoonboarding.R
 import com.example.oggettoonboarding.auth.models.AuthState
-import com.example.oggettoonboarding.auth.screens.viewmodels.AuthViewModel
-import com.example.oggettoonboarding.auth.screens.viewmodels.AuthViewModelFactory
+import com.example.oggettoonboarding.auth.fragments.viewmodels.AuthViewModel
+import com.example.oggettoonboarding.auth.fragments.viewmodels.AuthViewModelFactory
 import com.example.oggettoonboarding.databinding.FragmentSignInBinding
 
 class SignInFragment : Fragment(R.layout.fragment_sign_in) {
