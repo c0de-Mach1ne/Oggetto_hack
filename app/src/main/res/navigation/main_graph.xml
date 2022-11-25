@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_tabsFragment"
+            app:destination="@id/tabsFragment" />
     </fragment>
 
     <fragment
@@ -25,5 +28,10 @@
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/tabsFragment"
+        android:name="com.example.oggettoonboarding.fragments.tabs.TabsFragment"
+        android:label="TabsFragment"
+        tools:layout="@layout/fragment_tabs"/>
 
 </navigation>

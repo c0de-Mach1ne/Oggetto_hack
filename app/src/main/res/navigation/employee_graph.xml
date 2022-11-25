@@ -8,6 +8,7 @@
     <fragment
         android:id="@+id/employeeFragment"
         android:name="com.example.oggettoonboarding.fragments.employee.EmployeeFragment"
-        android:label="EmployeeFragment"
+        android:label="Employees"
         tools:layout="@layout/fragment_employee"/>
+
 </navigation>

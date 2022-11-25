@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.example.oggettoonboarding.fragments.game.GameFragment"
-        android:label="GameFragment"
+        android:label="Games"
         tools:layout="@layout/fragment_game" />
 </navigation>

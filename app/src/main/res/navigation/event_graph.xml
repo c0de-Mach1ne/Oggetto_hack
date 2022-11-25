@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/eventFragment"
         android:name="com.example.oggettoonboarding.fragments.event.EventFragment"
-        android:label="EventFragment"
+        android:label="Events"
         tools:layout="@layout/fragment_event"/>
 </navigation>
