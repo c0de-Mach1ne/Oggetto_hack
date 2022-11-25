@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "222445600005",
+    "firebase_url": "https://oggetto-hackathon-default-rtdb.firebaseio.com",
+    "project_id": "oggetto-hackathon",
+    "storage_bucket": "oggetto-hackathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222445600005:android:dd1447d991b95388d8cb6c",
+        "android_client_info": {
+          "package_name": "com.example.oggettoonboarding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222445600005-cn19l20r08btfcodbqtcduo23v8j0gdc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8mtc0NVO46v0AA8r0oDXw5UFslhCgseg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222445600005-cn19l20r08btfcodbqtcduo23v8j0gdc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
