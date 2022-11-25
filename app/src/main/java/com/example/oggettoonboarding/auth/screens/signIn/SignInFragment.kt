@@ -5,7 +5,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.oggettoonboarding.R
+import com.example.oggettoonboarding.auth.models.AuthState
 import com.example.oggettoonboarding.auth.screens.viewmodels.AuthViewModel
 import com.example.oggettoonboarding.auth.screens.viewmodels.AuthViewModelFactory
 import com.example.oggettoonboarding.databinding.FragmentSignInBinding
@@ -23,12 +25,21 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
             signIn()
         }
         binding.btnSignUp.setOnClickListener {
-
+            navigateToSignUp()
         }
     }
 
     private fun observableViewModel() {
-
+        viewModel.userState.observe(viewLifecycleOwner){
+            when(it){
+                is AuthState.Success -> {
+                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                }
+                is AuthState.Error -> {
+                    Toast.makeText(context, "${it.mes}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun signIn() {
@@ -39,4 +50,6 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
             viewModel.signIn(email, pass)
         } else Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_SHORT).show()
     }
+
+    private fun navigateToSignUp() = findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
 }

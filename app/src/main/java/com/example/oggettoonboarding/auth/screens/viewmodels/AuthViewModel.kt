@@ -17,8 +17,11 @@ class AuthViewModel(
 
     fun signIn(email: String, pass: String) {
         authRepository.signIn(UserAuth(email, pass)).addOnCompleteListener {
-            if (it.isSuccessful) AuthState.Success
-            else AuthState.Error(mes = it.exception?.message)
+            if (it.isSuccessful) {
+                _userState.value = AuthState.Success
+            } else {
+                _userState.value = AuthState.Error(mes = it.exception?.message)
+            }
         }
     }
 
