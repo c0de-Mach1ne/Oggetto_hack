@@ -24,7 +24,6 @@ class AuthRepository() {
                     name = userPersonalInfo.name,
                     sureName = userPersonalInfo.sureName,
                     patronymic = userPersonalInfo.patronymic,
-                    teacherFlag = userPersonalInfo.teacherFlag,
                 )
             )
         }
