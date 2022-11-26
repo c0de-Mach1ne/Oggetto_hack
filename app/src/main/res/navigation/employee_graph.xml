@@ -10,5 +10,4 @@
         android:name="com.example.oggettoonboarding.fragments.employee.EmployeeFragment"
         android:label="Employees"
         tools:layout="@layout/fragment_employee"/>
-
 </navigation>

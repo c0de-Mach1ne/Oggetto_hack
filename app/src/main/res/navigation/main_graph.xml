@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_tabsFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_employeeDescriptionFragment"
+            app:destination="@id/employeeDescriptionFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpWithPersonalInfo"
@@ -55,6 +58,18 @@
         <argument
             android:name="user_pers_info"
             app:argType="com.example.oggettoonboarding.auth.models.UserPersonalInfo" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_tabsFragment"
+            app:destination="@id/tabsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeDescriptionFragment"
+        android:name="com.example.oggettoonboarding.fragments.employee.employeDescription.EmployeeDescriptionFragment"
+        android:label="fragment_employee_description"
+        tools:layout="@layout/fragment_employee_description" >
+        <argument
+            android:name="user"
+            app:argType="com.example.oggettoonboarding.fragments.models.User" />
     </fragment>
 
 </navigation>

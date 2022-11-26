@@ -16,6 +16,7 @@ class UserRepository {
 
 
     fun getInstance() = storage.reference.child("images/")
+    fun getUsers() = db.child("Users").get()
 
     fun pushUserToDb(user: User) =
         firebaseAuth.currentUser?.let { firebaseUser ->

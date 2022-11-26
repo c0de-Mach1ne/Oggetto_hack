@@ -2,6 +2,7 @@ package com.example.oggettoonboarding.auth.fragments.edit_profile
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import com.example.oggettoonboarding.auth.models.AuthState
 import com.example.oggettoonboarding.databinding.FragmentEditProfleBinding
 import com.example.oggettoonboarding.fragments.models.*
 import com.example.oggettoonboarding.utils.ItemClickListener
+import com.example.oggettoonboarding.utils.findTopNavController
 import java.util.*
 
 class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
@@ -40,8 +42,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
     private val professionalSkillsList = mutableListOf<TechStack>()
     private val projectList = mutableListOf<Project>()
 
-    private var fileUri: String? =
-        "https://firebasestorage.googleapis.com/v0/b/oggetto-hackathon.appspot.com/o/images%2F7ea4c09b-5b14-4b57-add3-7250c2850568.jpg?alt=media&token=43864acc-717b-49d7-9444-aa16eb4236dc"
+    private var fileUri: Uri? = null
 
     private val hobbyAdapter by lazy {
         HobbyListAdapter(object : ItemClickListener<Hobby> {
@@ -86,7 +87,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
 
         binding.btnSave.setOnClickListener {
             // Todo: добавить проверку, что если пустая юри, то защитить от краша
-            fileUri?.let { it1 -> viewModel.uploadImage(it1) }
+            fileUri?.let { it1 -> viewModel.uploadImage(it1.toString()) }
             Log.d("TAG", "${getUiValue()}")
         }
 
@@ -178,7 +179,8 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
         }
 
         viewModel.imageUri.observe(viewLifecycleOwner) {
-            fileUri = it.toString()
+            fileUri = it
+            Log.d("TAG", "uri $it")
         }
 
         viewModel.projectList.observe(viewLifecycleOwner) {
@@ -190,7 +192,11 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
             when(it){
                 is AuthState.Success -> {
                     Toast.makeText(binding.btnSave.context, "Success", Toast.LENGTH_SHORT).show()
-                    findNavController().navigateUp()
+                    findTopNavController().navigate(R.id.action_editProfileFragment_to_tabsFragment, null, navOptions {
+                        popUpTo(R.id.editProfileFragment) {
+                            inclusive = true
+                        }
+                    })
                 }
                 is AuthState.Error -> {
                     Toast.makeText(binding.btnSave.context, it.mes, Toast.LENGTH_SHORT).show()
@@ -230,8 +236,10 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
             && data != null
             && data.data != null
         ) {
-            fileUri = data.data.toString()
+            fileUri = data.data
             Glide.with(binding.btnSave.context).load(data.data).into(binding.ivUserAvatar)
         }
     }
+
+
 }
