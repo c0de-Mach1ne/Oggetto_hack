@@ -8,14 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navOptions
 import com.bumptech.glide.Glide
 import com.example.oggettoonboarding.R
 import com.example.oggettoonboarding.auth.fragments.edit_profile.hobby.HobbyListAdapter
 import com.example.oggettoonboarding.auth.fragments.edit_profile.project.ProjectAdapter
 import com.example.oggettoonboarding.auth.fragments.edit_profile.skills.TechStackAdapter
+import com.example.oggettoonboarding.auth.models.AuthState
 import com.example.oggettoonboarding.databinding.FragmentEditProfleBinding
 import com.example.oggettoonboarding.fragments.models.*
 import com.example.oggettoonboarding.utils.ItemClickListener
@@ -180,6 +184,18 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
         viewModel.projectList.observe(viewLifecycleOwner) {
             projectAdapter.submitList(it)
             projectAdapter.notifyDataSetChanged()
+        }
+
+        viewModel.userState.observe(viewLifecycleOwner) {
+            when(it){
+                is AuthState.Success -> {
+                    Toast.makeText(binding.btnSave.context, "Success", Toast.LENGTH_SHORT).show()
+                    findNavController().navigateUp()
+                }
+                is AuthState.Error -> {
+                    Toast.makeText(binding.btnSave.context, it.mes, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
