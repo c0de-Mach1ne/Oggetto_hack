@@ -9,14 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.oggettoonboarding.R
-import com.example.oggettoonboarding.auth.fragments.edit_profile.recycler_hobby.HobbyListAdapter
-import com.example.oggettoonboarding.auth.fragments.edit_profile.recycler_skils.TechStackAdapter
+import com.example.oggettoonboarding.auth.fragments.edit_profile.hobby.HobbyListAdapter
+import com.example.oggettoonboarding.auth.fragments.edit_profile.project.ProjectAdapter
+import com.example.oggettoonboarding.auth.fragments.edit_profile.skills.TechStackAdapter
 import com.example.oggettoonboarding.databinding.FragmentEditProfleBinding
 import com.example.oggettoonboarding.fragments.models.*
 import com.example.oggettoonboarding.utils.ItemClickListener
@@ -35,6 +35,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
 
     private val hobby = mutableListOf<Hobby>()
     private val professionalSkills = mutableListOf<TechStack>()
+    private val projectList = mutableListOf<Project>()
 
     private lateinit var fileUri: Uri
 
@@ -43,6 +44,15 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
             override fun onClickItem(value: Hobby) {
                 hobby.remove(value)
                 viewModel.updateHobbyList(hobby)
+            }
+        })
+    }
+
+    private val projectAdapter by lazy {
+        ProjectAdapter(object : ItemClickListener<Project> {
+            override fun onClickItem(value: Project) {
+                projectList.remove(value)
+                viewModel.updateProjectList(projectList)
             }
         })
     }
@@ -90,6 +100,13 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
             Log.d("TAG", "techList $professionalSkills")
         }
 
+        binding.btnAddProjects.setOnClickListener {
+            projectList.add(Project(binding.etLayoutProjects.text.toString()))
+            binding.etLayoutProjects.text?.clear()
+            viewModel.updateProjectList(projectList)
+            Log.d("TAG", "projectList $projectList")
+        }
+
         binding.ivUserAvatar.setOnClickListener {
             selectImageFromGallery()
         }
@@ -99,30 +116,26 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
         val grade = resources.getStringArray(R.array.graid)
         val arrayAdapterGrade = ArrayAdapter(binding.btnSave.context, R.layout.dropdown_item, grade)
         binding.autoCompleteTextViewGrade.setAdapter(arrayAdapterGrade)
+
         val specialization = resources.getStringArray(R.array.specialization)
         val arrayAdapter =
             ArrayAdapter(binding.btnSave.context, R.layout.dropdown_item, specialization)
         binding.autoCompleteTextViewSpecialization.setAdapter(arrayAdapter)
+
         with(binding) {
             recyclerHobby.adapter = hobbyAdapter
         }
         with(binding) {
             recyclerTechStack.adapter = techStackAdapter
         }
+        with(binding) {
+            recyclerProjects.adapter = projectAdapter
+        }
     }
 
     private fun getUiValue(): User {
         val specialization = binding.autoCompleteTextViewSpecialization.text.toString()
         val workLevel = binding.autoCompleteTextViewGrade.text.toString()
-
-        // Todo: добавить эти поля тоже JOB
-        val projects: List<String>? = null
-        val team: String? = null
-        // Todo: добавить эти поля тоже About me
-        val city: String? = null
-        val description: String? = null
-        // Todo: About me
-        val facts: List<String>? = null
 
         return User(
             name = args.userPersInfo.name,
@@ -132,11 +145,9 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
             Job(
                 jobTitle = specialization,
                 grade = workLevel,
-                projects = null,
+                projects = projectList.map { it.toString() },
                 team = null,
-                professionalSkills = professionalSkills.map {
-                    it.toString()
-                },
+                professionalSkills = professionalSkills.map { it.toString() },
             ),
             AboutMe(
                 city = null,
@@ -160,6 +171,11 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
 
         viewModel.imageUri.observe(viewLifecycleOwner) {
             fileUri = it
+        }
+
+        viewModel.projectList.observe(viewLifecycleOwner) {
+            projectAdapter.submitList(it)
+            projectAdapter.notifyDataSetChanged()
         }
     }
 
