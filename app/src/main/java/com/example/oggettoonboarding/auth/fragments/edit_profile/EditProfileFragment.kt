@@ -36,7 +36,8 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
     private val professionalSkillsList = mutableListOf<TechStack>()
     private val projectList = mutableListOf<Project>()
 
-    private var fileUri: String? = "https://firebasestorage.googleapis.com/v0/b/oggetto-hackathon.appspot.com/o/images%2F7ea4c09b-5b14-4b57-add3-7250c2850568.jpg?alt=media&token=43864acc-717b-49d7-9444-aa16eb4236dc"
+    private var fileUri: String? =
+        "https://firebasestorage.googleapis.com/v0/b/oggetto-hackathon.appspot.com/o/images%2F7ea4c09b-5b14-4b57-add3-7250c2850568.jpg?alt=media&token=43864acc-717b-49d7-9444-aa16eb4236dc"
 
     private val hobbyAdapter by lazy {
         HobbyListAdapter(object : ItemClickListener<Hobby> {
@@ -150,13 +151,13 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
             Job(
                 jobTitle = specialization,
                 grade = workLevel,
-                projects = projectList,
+                projects = projectList.map { it.projectName ?: "" },
                 team = team,
-                professionalSkills = professionalSkillsList,
+                professionalSkills = professionalSkillsList.map { it.stackName ?: "" },
             ),
             AboutMe(
                 city = city,
-                hobby = hobbyList,
+                hobby = hobbyList.map { it.hobbyName ?: "" },
             ),
         )
     }
