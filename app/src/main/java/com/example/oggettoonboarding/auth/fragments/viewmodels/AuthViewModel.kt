@@ -32,7 +32,9 @@ class AuthViewModel(
         authRepository.signUpWithEmailAndPass(
             UserAuth(email, password)
         ).addOnCompleteListener {
-            if (it.isSuccessful) _userState.value = AuthState.Success
+            if (it.isSuccessful) {
+                _userState.value = AuthState.Success
+            }
             else _userState.value = AuthState.Error(mes = it.exception?.message)
         }
     }
@@ -54,4 +56,6 @@ class AuthViewModel(
             else _userState.value = AuthState.Error(mes = it.exception?.message)
         }
     }
+
+    fun getCurrentUser() = authRepository.getAuthUser()
 }

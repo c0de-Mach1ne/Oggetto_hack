@@ -2,9 +2,12 @@ package com.example.oggettoonboarding.repository
 
 import com.example.oggettoonboarding.auth.models.UserAuth
 import com.example.oggettoonboarding.auth.models.UserPersonalInfo
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import io.reactivex.rxjava3.core.Single
 
 class AuthRepository() {
 
@@ -35,4 +38,7 @@ class AuthRepository() {
         }
 
     fun getAuthUser() = firebaseAuth.currentUser
+
+    fun signOut() =
+        firebaseAuth.signOut()
 }

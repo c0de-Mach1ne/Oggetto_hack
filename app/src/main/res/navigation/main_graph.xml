@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+ <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
@@ -21,17 +21,28 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.oggettoonboarding.auth.fragments.signUp.SignUpFragment"
+        android:name="com.example.oggettoonboarding.auth.fragments.signUp.SignUpEmailPassFragment"
         android:label="Sign up"
-        tools:layout="@layout/fragment_sign_up">
+        tools:layout="@layout/fragment_sign_up_email_pass">
         <action
-            android:id="@+id/action_signUpFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            android:id="@+id/action_signUpFragment_to_signUpWithPersonalInfo"
+            app:destination="@id/signUpWithPersonalInfo" />
     </fragment>
     <fragment
         android:id="@+id/tabsFragment"
         android:name="com.example.oggettoonboarding.fragments.tabs.TabsFragment"
         android:label="TabsFragment"
         tools:layout="@layout/fragment_tabs"/>
+    <fragment
+        android:id="@+id/signUpWithPersonalInfo"
+        android:name="com.example.oggettoonboarding.auth.fragments.signUp.SignUpWithPersonalInfo"
+        android:label="SignUpWithPersonalInfo" >
+        <action
+            android:id="@+id/action_signUpWithPersonalInfo_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

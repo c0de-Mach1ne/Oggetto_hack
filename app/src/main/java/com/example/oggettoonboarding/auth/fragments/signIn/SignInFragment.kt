@@ -34,6 +34,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
             when(it){
                 is AuthState.Success -> {
                     Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                    navigateToTabs()
                 }
                 is AuthState.Error -> {
                     Toast.makeText(context, "${it.mes}", Toast.LENGTH_SHORT).show()
@@ -52,4 +53,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     }
 
     private fun navigateToSignUp() = findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+
+    private fun navigateToTabs() =
+        findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
 }
