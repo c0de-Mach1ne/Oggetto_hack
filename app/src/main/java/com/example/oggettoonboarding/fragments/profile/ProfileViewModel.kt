@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.oggettoonboarding.auth.models.UserPersonalInfo
-import com.example.oggettoonboarding.repository.AuthRepository
+import com.example.oggettoonboarding.repositories.AuthRepository
 
 class ProfileViewModel(private val authRepository: AuthRepository) : ViewModel() {
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.oggettoonboarding.auth.models.AuthState
-import com.example.oggettoonboarding.repository.AuthRepository
+import com.example.oggettoonboarding.repositories.AuthRepository
 
 class MainViewModel(
     private val authRepository: AuthRepository,

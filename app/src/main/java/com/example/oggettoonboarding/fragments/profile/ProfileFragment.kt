@@ -10,12 +10,14 @@ import androidx.navigation.navOptions
 import com.example.oggettoonboarding.R
 import com.example.oggettoonboarding.auth.models.UserPersonalInfo
 import com.example.oggettoonboarding.databinding.FragmentProfileBinding
+import com.example.oggettoonboarding.fragments.tabs.TabsFragmentDirections
 import com.example.oggettoonboarding.utils.findTopNavController
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private lateinit var binding: FragmentProfileBinding
     private val viewModel by viewModels<ProfileViewModel> { ProfileViewModelFactory() }
+    private lateinit var userPersonalInfo: UserPersonalInfo
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +32,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         binding.btnEditProfile.setOnClickListener {
-            findTopNavController().navigate(R.id.action_tabsFragment_to_editProfileFragment)
+            findTopNavController().navigate(TabsFragmentDirections.actionTabsFragmentToEditProfileFragment(
+                userPersInfo = userPersonalInfo))
         }
 
         return binding.root
@@ -53,8 +56,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun observeViewModel() {
-        viewModel.userData.observe(viewLifecycleOwner) { userPersonalInfo ->
-            updateUi(userPersonalInfo)
+        viewModel.userData.observe(viewLifecycleOwner) { userPersonalInfoModel ->
+            userPersonalInfo = userPersonalInfoModel
+            updateUi(userPersonalInfoModel)
         }
     }
 }

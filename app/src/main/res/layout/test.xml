@@ -58,18 +58,36 @@
                 android:textColorHint="#616161" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutPatronymic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Patronymic"
+            android:scrollbarSize="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputLayoutCity">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPatronymic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:textColorHint="#616161" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerProjects"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/inputLayoutProjects"
             app:layout_constraintEnd_toEndOf="@id/btnAddProjects"
             app:layout_constraintStart_toStartOf="@id/inputLayoutProjects"
-            app:layout_constraintTop_toBottomOf="@id/inputLayoutCity"
+            app:layout_constraintTop_toBottomOf="@id/inputLayoutPatronymic"
             tools:itemCount="5"
             tools:listitem="@layout/recycler_item" />
 
@@ -77,12 +95,12 @@
             android:id="@+id/inputLayoutProjects"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_marginEnd="10dp"
             android:hint="What projects are you involved in?"
+            android:scrollbarSize="25dp"
             app:layout_constraintEnd_toStartOf="@id/btnAddHobby"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputLayoutCity">
+            app:layout_constraintTop_toBottomOf="@id/recyclerHobby">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etLayoutProjects"
@@ -108,6 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toTopOf="@id/inputLayoutHobby"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/inputLayoutProjects">
@@ -120,37 +139,17 @@
                 tools:text="Junior" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dropDownSpecialization"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toTopOf="@id/inputLayoutHobby"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dropDownGrade">
-
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextViewSpecialization"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Your specialization"
-                tools:text="HR" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerHobby"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/inputLayoutHobby"
             app:layout_constraintEnd_toEndOf="@id/btnAddHobby"
             app:layout_constraintStart_toStartOf="@id/inputLayoutHobby"
-            app:layout_constraintTop_toBottomOf="@id/dropDownSpecialization"
+            app:layout_constraintTop_toBottomOf="@id/dropDownGrade"
             tools:itemCount="5"
             tools:listitem="@layout/recycler_item" />
 
@@ -158,14 +157,12 @@
             android:id="@+id/inputLayoutHobby"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
             android:layout_marginEnd="10dp"
             android:hint="Hobby"
             android:scrollbarSize="25dp"
             app:layout_constraintEnd_toStartOf="@id/btnAddHobby"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dropDownSpecialization">
+            app:layout_constraintTop_toBottomOf="@id/inputLayoutTechStack">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etLayoutHobby"
@@ -183,15 +180,17 @@
             app:layout_constraintBottom_toBottomOf="@id/inputLayoutHobby"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/inputLayoutHobby"
-            app:layout_constraintTop_toTopOf="@id/inputLayoutHobby" />
+            app:layout_constraintTop_toTopOf="@id/inputLayoutHobby"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerTechStack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/inputLayoutTechStack"
             app:layout_constraintEnd_toEndOf="@id/btnAddTechStack"
             app:layout_constraintStart_toStartOf="@id/inputLayoutTechStack"
             app:layout_constraintTop_toBottomOf="@id/inputLayoutHobby"
@@ -202,7 +201,7 @@
             android:id="@+id/inputLayoutTechStack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:hint="Technology stack"
             android:scrollbarSize="25dp"

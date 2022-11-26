@@ -1,29 +1,42 @@
 package com.example.oggettoonboarding.auth.fragments.edit_profile
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.oggettoonboarding.R
 import com.example.oggettoonboarding.auth.fragments.edit_profile.recycler_hobby.HobbyListAdapter
 import com.example.oggettoonboarding.auth.fragments.edit_profile.recycler_skils.TechStackAdapter
 import com.example.oggettoonboarding.databinding.FragmentEditProfleBinding
-import com.example.oggettoonboarding.fragments.models.Hobby
-import com.example.oggettoonboarding.fragments.models.TechStack
+import com.example.oggettoonboarding.fragments.models.*
 import com.example.oggettoonboarding.utils.ItemClickListener
+import java.util.*
 
 class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
 
+    companion object {
+        const val GALLERY_REQUEST_CODE = 1337
+    }
+
     private lateinit var binding: FragmentEditProfleBinding
+    private val viewModel by viewModels<EditProfileViewModel> { EditProfileViewModelFactory() }
+
     private val args by navArgs<EditProfileFragmentArgs>()
+
     private val hobby = mutableListOf<Hobby>()
-    private val techStack = mutableListOf<TechStack>()
-    private val viewModel by viewModels<EditProfileViewModel>()
+    private val professionalSkills = mutableListOf<TechStack>()
+
+    private lateinit var fileUri: Uri
 
     private val hobbyAdapter by lazy {
         HobbyListAdapter(object : ItemClickListener<Hobby> {
@@ -37,8 +50,8 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
     private val techStackAdapter by lazy {
         TechStackAdapter(object : ItemClickListener<TechStack> {
             override fun onClickItem(value: TechStack) {
-                techStack.remove(value)
-                viewModel.updateTechStack(techStack)
+                professionalSkills.remove(value)
+                viewModel.updateTechStack(professionalSkills)
             }
         })
     }
@@ -51,15 +64,18 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
         binding = FragmentEditProfleBinding.inflate(layoutInflater, container, false)
         observeViewModel()
         setUpUi()
-        setUpRecycler()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.btnSave.setOnClickListener {
-            getUiValue()
+            // Todo: добавить проверку, что если пустая юри, то защитить от краша
+            viewModel.uploadImage(fileUri)
+            Log.d("TAG" ,"${getUiValue().photoUrl}")
         }
+
         binding.btnAddHobby.setOnClickListener {
             hobby.add(Hobby(binding.etLayoutHobby.text.toString()))
             binding.etLayoutHobby.text?.clear()
@@ -68,37 +84,67 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
         }
 
         binding.btnAddTechStack.setOnClickListener {
-            techStack.add(TechStack(binding.etLayoutTechStack.text.toString()))
+            professionalSkills.add(TechStack(binding.etLayoutTechStack.text.toString()))
             binding.etLayoutTechStack.text?.clear()
-            viewModel.updateTechStack(techStack)
-            Log.d("TAG", "techList $techStack")
+            viewModel.updateTechStack(professionalSkills)
+            Log.d("TAG", "techList $professionalSkills")
+        }
+
+        binding.ivUserAvatar.setOnClickListener {
+            selectImageFromGallery()
         }
     }
 
     private fun setUpUi() {
-
-        // Todo: установить все пришедшие аргументы
-        //  Установить recycler, adapter и передать туда значения
-
         val grade = resources.getStringArray(R.array.graid)
         val arrayAdapterGrade = ArrayAdapter(binding.btnSave.context, R.layout.dropdown_item, grade)
         binding.autoCompleteTextViewGrade.setAdapter(arrayAdapterGrade)
-
         val specialization = resources.getStringArray(R.array.specialization)
         val arrayAdapter =
             ArrayAdapter(binding.btnSave.context, R.layout.dropdown_item, specialization)
         binding.autoCompleteTextViewSpecialization.setAdapter(arrayAdapter)
+        with(binding) {
+            recyclerHobby.adapter = hobbyAdapter
+        }
+        with(binding) {
+            recyclerTechStack.adapter = techStackAdapter
+        }
     }
 
-    private fun getUiValue() {
-        val photoUrl = ""
-        val name = binding.etName.text.toString()
-        val sureName = binding.etSureName.text.toString()
-        val patronymic = binding.etPatronymic.text.toString()
+    private fun getUiValue(): User {
         val specialization = binding.autoCompleteTextViewSpecialization.text.toString()
-        val graid = binding.autoCompleteTextViewGrade.text.toString()
-        val hobby = ""
-        val techStack = ""
+        val workLevel = binding.autoCompleteTextViewGrade.text.toString()
+
+        // Todo: добавить эти поля тоже JOB
+        val projects: List<String>? = null
+        val team: String? = null
+        // Todo: добавить эти поля тоже About me
+        val city: String? = null
+        val description: String? = null
+        // Todo: About me
+        val facts: List<String>? = null
+
+        return User(
+            name = args.userPersInfo.name,
+            sureName = args.userPersInfo.sureName,
+            patronymic = args.userPersInfo.patronymic,
+            photoUrl = fileUri,
+            Job(
+                jobTitle = specialization,
+                grade = workLevel,
+                projects = null,
+                team = null,
+                professionalSkills = professionalSkills.map {
+                    it.toString()
+                },
+            ),
+            AboutMe(
+                city = null,
+                description = null,
+                hobby = hobby.map { it.toString() },
+                facts = null,
+            ),
+        )
     }
 
     private fun observeViewModel() {
@@ -111,15 +157,45 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
             techStackAdapter.submitList(it)
             techStackAdapter.notifyDataSetChanged()
         }
+
+        viewModel.imageUri.observe(viewLifecycleOwner) {
+            fileUri = it
+        }
     }
 
-    private fun setUpRecycler() {
-        with(binding) {
-            recyclerHobby.adapter = hobbyAdapter
-        }
+    private fun selectImageFromGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(
+            Intent.createChooser(
+                intent,
+                "Please select..."
+            ),
+            GALLERY_REQUEST_CODE
+        )
+    }
 
-        with(binding) {
-            recyclerTechStack.adapter = techStackAdapter
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+    ) {
+
+        super.onActivityResult(
+            requestCode,
+            resultCode,
+            data
+        )
+
+        if (requestCode == GALLERY_REQUEST_CODE
+            && resultCode == Activity.RESULT_OK
+            && data != null
+            && data.data != null
+        ) {
+            fileUri = data.data!!
+            Glide.with(binding.btnSave.context).load(data.data).into(binding.ivUserAvatar)
         }
     }
 }

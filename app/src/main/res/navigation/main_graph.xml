@@ -53,8 +53,8 @@
         android:name="com.example.oggettoonboarding.auth.fragments.edit_profile.EditProfileFragment"
         android:label="EditProfileFragment" >
         <argument
-            android:name="user"
-            app:argType="com.example.oggettoonboarding.fragments.models.User" />
+            android:name="user_pers_info"
+            app:argType="com.example.oggettoonboarding.auth.models.UserPersonalInfo" />
     </fragment>
 
 </navigation>

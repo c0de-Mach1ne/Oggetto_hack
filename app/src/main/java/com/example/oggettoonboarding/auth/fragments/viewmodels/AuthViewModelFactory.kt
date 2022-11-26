@@ -2,7 +2,7 @@ package com.example.oggettoonboarding.auth.fragments.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.oggettoonboarding.repository.AuthRepository
+import com.example.oggettoonboarding.repositories.AuthRepository
 
 class AuthViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
