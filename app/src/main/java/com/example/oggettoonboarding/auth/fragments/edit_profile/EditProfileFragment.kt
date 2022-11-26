@@ -2,7 +2,6 @@ package com.example.oggettoonboarding.auth.fragments.edit_profile
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,17 +32,17 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
 
     private val args by navArgs<EditProfileFragmentArgs>()
 
-    private val hobby = mutableListOf<Hobby>()
-    private val professionalSkills = mutableListOf<TechStack>()
+    private val hobbyList = mutableListOf<Hobby>()
+    private val professionalSkillsList = mutableListOf<TechStack>()
     private val projectList = mutableListOf<Project>()
 
-    private lateinit var fileUri: Uri
+    private var fileUri: String? = "https://firebasestorage.googleapis.com/v0/b/oggetto-hackathon.appspot.com/o/images%2F7ea4c09b-5b14-4b57-add3-7250c2850568.jpg?alt=media&token=43864acc-717b-49d7-9444-aa16eb4236dc"
 
     private val hobbyAdapter by lazy {
         HobbyListAdapter(object : ItemClickListener<Hobby> {
             override fun onClickItem(value: Hobby) {
-                hobby.remove(value)
-                viewModel.updateHobbyList(hobby)
+                hobbyList.remove(value)
+                viewModel.updateHobbyList(hobbyList)
             }
         })
     }
@@ -60,8 +59,8 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
     private val techStackAdapter by lazy {
         TechStackAdapter(object : ItemClickListener<TechStack> {
             override fun onClickItem(value: TechStack) {
-                professionalSkills.remove(value)
-                viewModel.updateTechStack(professionalSkills)
+                professionalSkillsList.remove(value)
+                viewModel.updateTechStack(professionalSkillsList)
             }
         })
     }
@@ -82,22 +81,26 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
 
         binding.btnSave.setOnClickListener {
             // Todo: добавить проверку, что если пустая юри, то защитить от краша
-            viewModel.uploadImage(fileUri)
-            Log.d("TAG" ,"${getUiValue().photoUrl}")
+            fileUri?.let { it1 -> viewModel.uploadImage(it1) }
+            Log.d("TAG", "${getUiValue()}")
+        }
+
+        binding.btnPush.setOnClickListener {
+            viewModel.pushUser(getUiValue())
         }
 
         binding.btnAddHobby.setOnClickListener {
-            hobby.add(Hobby(binding.etLayoutHobby.text.toString()))
+            hobbyList.add(Hobby(binding.etLayoutHobby.text.toString()))
             binding.etLayoutHobby.text?.clear()
-            viewModel.updateHobbyList(hobby)
-            Log.d("TAG", "hobbyList $hobby")
+            viewModel.updateHobbyList(hobbyList)
+            Log.d("TAG", "hobbyList $hobbyList")
         }
 
         binding.btnAddTechStack.setOnClickListener {
-            professionalSkills.add(TechStack(binding.etLayoutTechStack.text.toString()))
+            professionalSkillsList.add(TechStack(binding.etLayoutTechStack.text.toString()))
             binding.etLayoutTechStack.text?.clear()
-            viewModel.updateTechStack(professionalSkills)
-            Log.d("TAG", "techList $professionalSkills")
+            viewModel.updateTechStack(professionalSkillsList)
+            Log.d("TAG", "techList $professionalSkillsList")
         }
 
         binding.btnAddProjects.setOnClickListener {
@@ -143,17 +146,17 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
             name = args.userPersInfo.name,
             sureName = args.userPersInfo.sureName,
             patronymic = args.userPersInfo.patronymic,
-            photoUrl = fileUri,
+            photoUrl = fileUri.toString(),
             Job(
                 jobTitle = specialization,
                 grade = workLevel,
-                projects = projectList.map { it.toString() },
+                projects = projectList,
                 team = team,
-                professionalSkills = professionalSkills.map { it.toString() },
+                professionalSkills = professionalSkillsList,
             ),
             AboutMe(
                 city = city,
-                hobby = hobby.map { it.toString() },
+                hobby = hobbyList,
             ),
         )
     }
@@ -170,7 +173,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
         }
 
         viewModel.imageUri.observe(viewLifecycleOwner) {
-            fileUri = it
+            fileUri = it.toString()
         }
 
         viewModel.projectList.observe(viewLifecycleOwner) {
@@ -210,7 +213,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
             && data != null
             && data.data != null
         ) {
-            fileUri = data.data!!
+            fileUri = data.data.toString()
             Glide.with(binding.btnSave.context).load(data.data).into(binding.ivUserAvatar)
         }
     }

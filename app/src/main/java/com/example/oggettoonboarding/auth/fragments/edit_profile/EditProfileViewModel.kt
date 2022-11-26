@@ -2,12 +2,14 @@ package com.example.oggettoonboarding.auth.fragments.edit_profile
 
 import android.net.Uri
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.oggettoonboarding.fragments.models.Hobby
 import com.example.oggettoonboarding.fragments.models.Project
 import com.example.oggettoonboarding.fragments.models.TechStack
+import com.example.oggettoonboarding.fragments.models.User
 import com.example.oggettoonboarding.repositories.UserRepository
 import java.util.*
 
@@ -39,9 +41,9 @@ class EditProfileViewModel(
         _projectList.postValue(projects)
     }
 
-    fun uploadImage(fileUri: Uri) {
+    fun uploadImage(fileUri: String) {
         val fileName = UUID.randomUUID().toString() + ".jpg"
-        userRepository.getInstance().child(fileName).putFile(fileUri)
+        userRepository.getInstance().child(fileName).putFile(fileUri.toUri())
             .addOnSuccessListener { taskSnapshot ->
                 taskSnapshot.storage.downloadUrl.addOnSuccessListener {
                     Log.d("TAG", "uri $it")
@@ -50,5 +52,15 @@ class EditProfileViewModel(
             }.addOnFailureListener { e ->
                 print(e.message)
             }
+    }
+
+    fun pushUser(user: User){
+        userRepository.pushUserToDb(user)?.addOnCompleteListener {
+            if (it.isSuccessful){
+                Log.d("TAG", "Success")
+            }else if (it.isCanceled){
+                Log.d("TAG", "Some error")
+            }
+        }
     }
 }
