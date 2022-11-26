@@ -56,6 +56,4 @@ class AuthViewModel(
             else _userState.value = AuthState.Error(mes = it.exception?.message)
         }
     }
-
-    fun getCurrentUser() = authRepository.getAuthUser()
 }

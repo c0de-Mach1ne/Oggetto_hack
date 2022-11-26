@@ -7,7 +7,7 @@ import com.example.oggettoonboarding.databinding.TechStackItemBinding
 import com.example.oggettoonboarding.fragments.models.TechStack
 import com.example.oggettoonboarding.utils.ItemClickListener
 
-class TechStackAdapter(private val callback: ItemClickListener<String>) :
+class TechStackAdapter(private val callback: ItemClickListener<TechStack>) :
     ListAdapter<TechStack, TechStacksViewHolder>(TechStackDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TechStacksViewHolder(

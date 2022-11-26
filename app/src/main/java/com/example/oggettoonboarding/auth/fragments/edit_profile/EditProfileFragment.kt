@@ -7,35 +7,39 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.oggettoonboarding.R
 import com.example.oggettoonboarding.auth.fragments.edit_profile.recycler_hobby.HobbyListAdapter
 import com.example.oggettoonboarding.auth.fragments.edit_profile.recycler_skils.TechStackAdapter
 import com.example.oggettoonboarding.databinding.FragmentEditProfleBinding
+import com.example.oggettoonboarding.fragments.models.Hobby
+import com.example.oggettoonboarding.fragments.models.TechStack
 import com.example.oggettoonboarding.utils.ItemClickListener
 
 class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
 
     private lateinit var binding: FragmentEditProfleBinding
     private val args by navArgs<EditProfileFragmentArgs>()
-    private val hobby = mutableListOf<String>()
-    private val techStack = mutableListOf<String>()
+    private val hobby = mutableListOf<Hobby>()
+    private val techStack = mutableListOf<TechStack>()
+    private val viewModel by viewModels<EditProfileViewModel>()
 
     private val hobbyAdapter by lazy {
-        HobbyListAdapter(object : ItemClickListener<String> {
-            override fun onClickItem(value: String) {
+        HobbyListAdapter(object : ItemClickListener<Hobby> {
+            override fun onClickItem(value: Hobby) {
                 hobby.remove(value)
+                viewModel.updateHobbyList(hobby)
             }
-
         })
     }
 
     private val techStackAdapter by lazy {
-        TechStackAdapter(object : ItemClickListener<String> {
-            override fun onClickItem(value: String) {
+        TechStackAdapter(object : ItemClickListener<TechStack> {
+            override fun onClickItem(value: TechStack) {
                 techStack.remove(value)
+                viewModel.updateTechStack(techStack)
             }
-
         })
     }
 
@@ -45,27 +49,28 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentEditProfleBinding.inflate(layoutInflater, container, false)
+        observeViewModel()
+        setUpUi()
+        setUpRecycler()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setUpUi()
-
         binding.btnSave.setOnClickListener {
             getUiValue()
         }
-
         binding.btnAddHobby.setOnClickListener {
-            hobby.add(binding.etLayoutHobby.text.toString())
+            hobby.add(Hobby(binding.etLayoutHobby.text.toString()))
             binding.etLayoutHobby.text?.clear()
+            viewModel.updateHobbyList(hobby)
             Log.d("TAG", "hobbyList $hobby")
         }
 
         binding.btnAddTechStack.setOnClickListener {
-            techStack.add(binding.etLayoutTechStack.text.toString())
+            techStack.add(TechStack(binding.etLayoutTechStack.text.toString()))
             binding.etLayoutTechStack.text?.clear()
+            viewModel.updateTechStack(techStack)
             Log.d("TAG", "techList $techStack")
         }
     }
@@ -94,6 +99,18 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
         val graid = binding.autoCompleteTextViewGrade.text.toString()
         val hobby = ""
         val techStack = ""
+    }
+
+    private fun observeViewModel() {
+        viewModel.hobbyList.observe(viewLifecycleOwner) {
+            hobbyAdapter.submitList(it)
+            hobbyAdapter.notifyDataSetChanged()
+        }
+
+        viewModel.techStack.observe(viewLifecycleOwner) {
+            techStackAdapter.submitList(it)
+            techStackAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun setUpRecycler() {

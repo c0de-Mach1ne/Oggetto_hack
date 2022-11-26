@@ -7,11 +7,11 @@ import com.example.oggettoonboarding.utils.ItemClickListener
 
 class HobbyListViewHolder(
     private val binding: HobbyItemBinding,
-    private val callback: ItemClickListener<String>,
+    private val callback: ItemClickListener<Hobby>,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(hobby: Hobby) {
-        binding.ivDeleteTag.setOnClickListener { callback.onClickItem(hobby.hobbyName) }
+        binding.ivDeleteTag.setOnClickListener { callback.onClickItem(Hobby(hobby.hobbyName)) }
         binding.tvHobbyTag.text = hobby.hobbyName
     }
 }

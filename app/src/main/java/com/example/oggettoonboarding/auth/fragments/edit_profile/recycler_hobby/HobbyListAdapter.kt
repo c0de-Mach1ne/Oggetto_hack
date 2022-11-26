@@ -7,7 +7,7 @@ import com.example.oggettoonboarding.databinding.HobbyItemBinding
 import com.example.oggettoonboarding.fragments.models.Hobby
 import com.example.oggettoonboarding.utils.ItemClickListener
 
-class HobbyListAdapter(private val callback: ItemClickListener<String>) :
+class HobbyListAdapter(private val callback: ItemClickListener<Hobby>) :
     ListAdapter<Hobby, HobbyListViewHolder>(HobbyListDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = HobbyListViewHolder(

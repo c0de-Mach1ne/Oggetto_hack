@@ -7,11 +7,15 @@ import com.example.oggettoonboarding.utils.ItemClickListener
 
 class TechStacksViewHolder(
     private val binding: TechStackItemBinding,
-    private val callback: ItemClickListener<String>,
+    private val callback: ItemClickListener<TechStack>,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(stack: TechStack) {
-        binding.ivDeleteTag.setOnClickListener { callback.onClickItem(stack.stackName) }
+        binding.ivDeleteTag.setOnClickListener {
+            callback.onClickItem(TechStack(stack.stackName))
+
+        }
+
         binding.tvTechStack.text = stack.stackName
     }
 }
