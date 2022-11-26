@@ -35,7 +35,7 @@ class SignUpWithPersonalInfo: Fragment(R.layout.fragment_sign_up_pers_info) {
         if (name.isNotBlank() && sureName.isNotBlank() && patronymic.isNotBlank()) {
 
             Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
-            viewModel.signUpWithPersonalInfo(name, sureName, patronymic, args.email)
+            viewModel.signUpWithPersonalInfo(args.email, name, sureName, patronymic)
         } else Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_SHORT).show()
     }
 

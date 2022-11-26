@@ -29,6 +29,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             signOut()
         }
 
+        binding.btnEditProfile.setOnClickListener {
+            findTopNavController().navigate(R.id.action_tabsFragment_to_editProfileFragment)
+        }
+
         return binding.root
     }
 

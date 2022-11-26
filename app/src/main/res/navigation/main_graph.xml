@@ -32,7 +32,11 @@
         android:id="@+id/tabsFragment"
         android:name="com.example.oggettoonboarding.fragments.tabs.TabsFragment"
         android:label="TabsFragment"
-        tools:layout="@layout/fragment_tabs"/>
+        tools:layout="@layout/fragment_tabs">
+        <action
+            android:id="@+id/action_tabsFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signUpWithPersonalInfo"
         android:name="com.example.oggettoonboarding.auth.fragments.signUp.SignUpWithPersonalInfo"
@@ -44,5 +48,9 @@
             android:name="email"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.oggettoonboarding.auth.fragments.edit_profile.EditProfileFragment"
+        android:label="EditProfileFragment" />
 
 </navigation>
