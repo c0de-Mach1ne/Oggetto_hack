@@ -136,6 +136,8 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
     private fun getUiValue(): User {
         val specialization = binding.autoCompleteTextViewSpecialization.text.toString()
         val workLevel = binding.autoCompleteTextViewGrade.text.toString()
+        val team = binding.etTeam.text.toString()
+        val city = binding.etCity.text.toString()
 
         return User(
             name = args.userPersInfo.name,
@@ -146,14 +148,12 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profle) {
                 jobTitle = specialization,
                 grade = workLevel,
                 projects = projectList.map { it.toString() },
-                team = null,
+                team = team,
                 professionalSkills = professionalSkills.map { it.toString() },
             ),
             AboutMe(
-                city = null,
-                description = null,
+                city = city,
                 hobby = hobby.map { it.toString() },
-                facts = null,
             ),
         )
     }

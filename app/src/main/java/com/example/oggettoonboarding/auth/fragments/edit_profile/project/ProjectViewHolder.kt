@@ -11,10 +11,7 @@ class ProjectViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(projectName: Project) {
-        binding.ivDeleteItem.setOnClickListener {
-            callback.onClickItem(Project(projectName.projectName))
-        }
-
+        binding.ivDeleteItem.setOnClickListener { callback.onClickItem(Project(projectName.projectName)) }
         binding.tvItemName.text = projectName.projectName
     }
 }
