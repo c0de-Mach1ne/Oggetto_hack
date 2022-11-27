@@ -1,4 +1,4 @@
-package com.example.oggettoonboarding.auth.fragments.edit_profile.skills
+package com.example.oggettoonboarding.fragments.profile.edit_profile.skills
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.oggettoonboarding.databinding.RecyclerItemBinding

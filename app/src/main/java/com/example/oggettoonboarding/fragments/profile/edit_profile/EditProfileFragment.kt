@@ -1,4 +1,4 @@
-package com.example.oggettoonboarding.auth.fragments.edit_profile
+package com.example.oggettoonboarding.fragments.profile.edit_profile
 
 import android.app.Activity
 import android.content.Intent
@@ -17,9 +17,9 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
 import com.bumptech.glide.Glide
 import com.example.oggettoonboarding.R
-import com.example.oggettoonboarding.auth.fragments.edit_profile.hobby.HobbyListAdapter
-import com.example.oggettoonboarding.auth.fragments.edit_profile.project.ProjectAdapter
-import com.example.oggettoonboarding.auth.fragments.edit_profile.skills.TechStackAdapter
+import com.example.oggettoonboarding.fragments.profile.edit_profile.hobby.HobbyListAdapter
+import com.example.oggettoonboarding.fragments.profile.edit_profile.project.ProjectAdapter
+import com.example.oggettoonboarding.fragments.profile.edit_profile.skills.TechStackAdapter
 import com.example.oggettoonboarding.auth.models.AuthState
 import com.example.oggettoonboarding.databinding.FragmentEditProfleBinding
 import com.example.oggettoonboarding.fragments.models.*

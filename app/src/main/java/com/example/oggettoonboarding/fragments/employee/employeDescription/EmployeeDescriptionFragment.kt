@@ -12,6 +12,7 @@ import com.example.oggettoonboarding.databinding.FragmentEmployeeDescriptionBind
 
 class EmployeeDescriptionFragment: Fragment(R.layout.fragment_employee_description) {
 
+    // TODO реализовать отображение данных для подробного описания работника
     private lateinit var binding: FragmentEmployeeDescriptionBinding
     private val args by navArgs<EmployeeDescriptionFragmentArgs>()
 

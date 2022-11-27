@@ -1,4 +1,4 @@
-package com.example.oggettoonboarding.auth.fragments.edit_profile.project
+package com.example.oggettoonboarding.fragments.profile.edit_profile.project
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.oggettoonboarding.fragments.models.Project

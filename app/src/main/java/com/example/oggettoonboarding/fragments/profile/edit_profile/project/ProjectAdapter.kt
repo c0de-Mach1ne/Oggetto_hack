@@ -1,4 +1,4 @@
-package com.example.oggettoonboarding.auth.fragments.edit_profile.project
+package com.example.oggettoonboarding.fragments.profile.edit_profile.project
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

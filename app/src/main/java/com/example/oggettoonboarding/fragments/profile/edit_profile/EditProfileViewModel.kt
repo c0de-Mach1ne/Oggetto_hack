@@ -1,4 +1,4 @@
-package com.example.oggettoonboarding.auth.fragments.edit_profile
+package com.example.oggettoonboarding.fragments.profile.edit_profile
 
 import android.net.Uri
 import android.util.Log

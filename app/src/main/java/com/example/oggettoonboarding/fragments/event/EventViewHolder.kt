@@ -14,7 +14,6 @@ class EventViewHolder(
     fun bind(event: Event) {
         Glide.with(binding.root).load(event.photoUrl).into(binding.ivEventPoster)
         binding.tvEventTitle.text = event.title
-        binding.tvTizer.text = event.tizer ?: ""
         binding.root.setOnClickListener {
             callback.onClickItem(event)
         }

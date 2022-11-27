@@ -56,5 +56,5 @@ class UserRepository {
         db.child("Events").child(key).setValue(event)
 
 
-    fun getEvent(key: String) = db.child("Events").child(key).get()
+    fun getEvent() = db.child("Events").get()
 }

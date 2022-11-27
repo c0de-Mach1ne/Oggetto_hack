@@ -1,4 +1,4 @@
-package com.example.oggettoonboarding.auth.fragments.edit_profile
+package com.example.oggettoonboarding.fragments.profile.edit_profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
