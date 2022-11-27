@@ -27,5 +27,4 @@ class EventDescriptionFragment: Fragment(R.layout.fragment_event_description) {
         binding.tvTest.text = navArg.event.title
         return binding.root
     }
-
 }
