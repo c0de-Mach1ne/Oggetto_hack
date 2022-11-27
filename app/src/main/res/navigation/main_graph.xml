@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_tabsFragment_to_employeeDescriptionFragment"
             app:destination="@id/employeeDescriptionFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_checkListFragment"
+            app:destination="@id/checkListFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpWithPersonalInfo"
@@ -71,5 +74,9 @@
             android:name="user"
             app:argType="com.example.oggettoonboarding.fragments.models.User" />
     </fragment>
+    <fragment
+        android:id="@+id/checkListFragment"
+        android:name="com.example.oggettoonboarding.fragments.checklist.CheckListFragment"
+        android:label="CheckListFragment" />
 
 </navigation>

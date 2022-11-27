@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.example.oggettoonboarding.R
 import com.example.oggettoonboarding.auth.models.UserPersonalInfo
@@ -29,6 +30,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         binding.btnLogOut.setOnClickListener {
             signOut()
+        }
+
+        binding.btnCheckList.setOnClickListener {
+            findTopNavController().navigate(R.id.action_tabsFragment_to_checkListFragment, null, navOptions {
+                popUpTo(R.id.profileFragment) {
+                    inclusive = true
+                }
+            })
         }
 
         binding.btnEditProfile.setOnClickListener {

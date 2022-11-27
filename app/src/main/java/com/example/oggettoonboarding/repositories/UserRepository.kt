@@ -1,8 +1,6 @@
 package com.example.oggettoonboarding.repositories
 
-import com.example.oggettoonboarding.fragments.models.AboutMe
-import com.example.oggettoonboarding.fragments.models.Job
-import com.example.oggettoonboarding.fragments.models.User
+import com.example.oggettoonboarding.fragments.models.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -14,9 +12,22 @@ class UserRepository {
     private val storage = Firebase.storage
     private val db = Firebase.database.reference
 
-
+    fun getCurrentUser() = firebaseAuth.currentUser
     fun getInstance() = storage.reference.child("images/")
     fun getUsers() = db.child("Users").get()
+
+    fun pushStandardUserCheckList(listCheckList: List<CheckList>) =
+        db.child("StandardCheckList").setValue(listCheckList)
+
+    fun getStandardCheckList() = db.child("StandardCheckList").get()
+
+    fun initUserCheckList(userCheckList: UserCheckList) =
+        userCheckList.uid?.let { db.child("UserCheckList").child(it) }?.setValue(
+            UserCheckList(
+                uid = userCheckList.uid,
+                listCheckList = userCheckList.listCheckList,
+            )
+        )
 
     fun pushUserToDb(user: User) =
         firebaseAuth.currentUser?.let { firebaseUser ->

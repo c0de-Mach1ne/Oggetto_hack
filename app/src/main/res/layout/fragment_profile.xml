@@ -156,10 +156,23 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
             android:text="Edit profile"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnLogOut" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCheckList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:text="Check list"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnEditProfile" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
