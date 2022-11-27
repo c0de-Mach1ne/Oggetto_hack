@@ -51,4 +51,10 @@ class UserRepository {
                 )
             )
         }
+
+    fun pushEvent(event: Event, key: String) =
+        db.child("Events").child(key).setValue(event)
+
+
+    fun getEvent(key: String) = db.child("Events").child(key).get()
 }

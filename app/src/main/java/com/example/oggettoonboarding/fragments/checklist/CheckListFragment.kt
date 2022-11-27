@@ -36,6 +36,14 @@ class CheckListFragment : Fragment(R.layout.fragment_checklist) {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnCheck.setOnClickListener {
+            // Todo: летит какой-то запрос, который проверяет выполнил ли пользователь действия
+        }
+    }
+
     private fun observeViewModel() {
         viewModel.checkList.observe(viewLifecycleOwner) {
             checkListAdapter.submitList(it)
