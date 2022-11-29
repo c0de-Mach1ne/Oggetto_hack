@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/signInFragment">
+
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.oggettoonboarding.auth.fragments.signIn.SignInFragment"
+        android:label="Sign in"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_tabsFragment"
+            app:destination="@id/tabsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.oggettoonboarding.auth.fragments.signUp.SignUpEmailPassFragment"
+        android:label="Sign up"
+        tools:layout="@layout/fragment_sign_up_email_pass">
+        <action
+            android:id="@+id/action_signUpFragment_to_signUpWithPersonalInfo"
+            app:destination="@id/signUpWithPersonalInfo" />
+    </fragment>
+    <fragment
+        android:id="@+id/tabsFragment"
+        android:name="com.example.oggettoonboarding.fragments.tabs.TabsFragment"
+        android:label="TabsFragment"
+        tools:layout="@layout/fragment_tabs">
+        <action
+            android:id="@+id/action_tabsFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_employeeDescriptionFragment"
+            app:destination="@id/employeeDescriptionFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_checkListFragment"
+            app:destination="@id/checkListFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_eventDescriptionFragment"
+            app:destination="@id/eventDescriptionFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_createEventFragment"
+            app:destination="@id/createEventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpWithPersonalInfo"
+        android:name="com.example.oggettoonboarding.auth.fragments.signUp.SignUpWithPersonalInfo"
+        android:label="SignUpWithPersonalInfo" >
+        <action
+            android:id="@+id/action_signUpWithPersonalInfo_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.oggettoonboarding.fragments.profile.edit_profile.EditProfileFragment"
+        android:label="EditProfileFragment" >
+        <argument
+            android:name="user_pers_info"
+            app:argType="com.example.oggettoonboarding.auth.models.UserPersonalInfo" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_tabsFragment"
+            app:destination="@id/tabsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeDescriptionFragment"
+        android:name="com.example.oggettoonboarding.fragments.employee.employeDescription.EmployeeDescriptionFragment"
+        android:label="fragment_employee_description"
+        tools:layout="@layout/fragment_employee_description" >
+        <argument
+            android:name="user"
+            app:argType="com.example.oggettoonboarding.fragments.models.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkListFragment"
+        android:name="com.example.oggettoonboarding.fragments.checklist.CheckListFragment"
+        android:label="CheckListFragment" />
+    <fragment
+        android:id="@+id/eventDescriptionFragment"
+        android:name="com.example.oggettoonboarding.fragments.event.event_description.EventDescriptionFragment"
+        android:label="EventDescriptionFragment" >
+        <argument
+            android:name="event"
+            app:argType="com.example.oggettoonboarding.fragments.models.Event" />
+    </fragment>
+    <fragment
+        android:id="@+id/createEventFragment"
+        android:name="com.example.oggettoonboarding.fragments.event.create_event.CreateEventFragment"
+        android:label="CreateEventFragment" />
+
+</navigation>

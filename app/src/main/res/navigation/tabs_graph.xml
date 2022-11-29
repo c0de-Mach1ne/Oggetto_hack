@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tags_graph"
+    app:startDestination="@id/employee_graph">
+
+    <include app:graph="@navigation/event_graph" />
+    <include app:graph="@navigation/game_graph" />
+    <include app:graph="@navigation/profile_graph" />
+    <include app:graph="@navigation/employee_graph" />
+
+</navigation>

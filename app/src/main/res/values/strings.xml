@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Oggetto onboarding</string>
+
+    <string-array name="graid">
+        <item>Intern</item>
+        <item>Junior</item>
+        <item>Middle</item>
+        <item>Senior</item>
+        <item>Lead</item>
+    </string-array>
+
+    <string-array name="specialization">
+        <item>HR</item>
+        <item>Project manager</item>
+        <item>Product manager</item>
+        <item>Android developer</item>
+        <item>Backend developer</item>
+        <item>Frontend developer</item>
+        <item>DevOps</item>
+        <item>Tester</item>
+        <item>Analytic</item>
+    </string-array>
+
 </resources>
